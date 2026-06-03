@@ -5,10 +5,12 @@ import com.Senai.Filmes.DTO.Response.SalaResponse;
 import com.Senai.Filmes.Model.Assento;
 import com.Senai.Filmes.Model.Sala;
 import com.Senai.Filmes.Repository.ISalaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class SalaService {
 
@@ -25,6 +27,28 @@ public class SalaService {
         sala.setAssentos(assentos);
 
         return toResponse(salaRepository.save(sala));
+    }
+
+    public List<SalaResponse> listarTodos(){
+        return salaRepository.findAll().stream().map(this::toResponse).toList();
+    }
+
+    //get byId Buscar por id
+    public SalaResponse buscarPorSalaId(UUID id){
+        Sala sala = salaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Sala não encontrada!"));
+
+        return toResponse(sala);
+    }
+
+    //Atualizar sala
+
+    public SalaResponse atualizarSala(UUID id, SalaRequest salaRequest){
+        Sala sala = salaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Nenhuma sala encontrada"));
+        sala.setNome(salaRequest.nome());
+        //PAREIAQUI
+        sala.setAssentos();
     }
 
     private List<Assento> gerarAssentos(Sala sala, int fileiras, int assentosPorFileira) {
