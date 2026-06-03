@@ -53,7 +53,7 @@ public class SalaController {
     //Deletar Sala
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Deletar sala", description = "deleta os dados de uma sala por completo")
+    @Operation(summary = "Deletar sala", description = "deleta os dados de uma sala por completo -> Somente ADMIN")
     public ResponseEntity<SalaResponse> deletar(@PathVariable UUID id){
         salaService.deletar(id);
         return new ResponseEntity<>(HttpStatus.OK);

@@ -43,8 +43,6 @@ public class SalaService {
         return toResponse(sala);
     }
 
-
-
     private List<Assento> gerarAssentos(Sala sala, int fileiras, int assentosPorFileira) {
         List<Assento> assentos = new ArrayList<>();
         for (int f = 0; f < fileiras; f++) {
