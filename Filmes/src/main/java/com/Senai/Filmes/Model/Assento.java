@@ -26,4 +26,7 @@ public class Assento {
     @ManyToOne
     @JoinColumn(name = "sala_id")
     private Sala sala;
+
+    @NotNull
+    private Boolean status;
 }
