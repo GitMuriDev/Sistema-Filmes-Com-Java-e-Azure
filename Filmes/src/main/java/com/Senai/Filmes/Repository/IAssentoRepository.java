@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.UUID;
 
-public interface IAssentoRepository extends JpaRepository<ReservaAssento, UUID> {
+public interface IAssentoRepository extends JpaRepository<Assento, UUID> {
 
     List<Assento> findBySalaId(UUID salaId);
 }

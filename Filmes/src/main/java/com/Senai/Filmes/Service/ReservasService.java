@@ -2,11 +2,8 @@ package com.Senai.Filmes.Service;
 
 import com.Senai.Filmes.DTO.Request.ReservaRequest;
 import com.Senai.Filmes.DTO.Response.*;
-import com.Senai.Filmes.Model.Assento;
+import com.Senai.Filmes.Model.*;
 import com.Senai.Filmes.Model.Enums.StatusReserva;
-import com.Senai.Filmes.Model.Reservas;
-import com.Senai.Filmes.Model.Sessao;
-import com.Senai.Filmes.Model.Usuario;
 import com.Senai.Filmes.Repository.IAssentoRepository;
 import com.Senai.Filmes.Repository.IReservasRepository;
 import com.Senai.Filmes.Repository.ISessaoRepository;
@@ -92,8 +89,17 @@ public class ReservasService {
                 throw new RuntimeException("O assento " + assento.getFileira() + assento.getNumero() + " está ocupado");
             }
 
+            ReservaAssento reservaAssento = new ReservaAssento();
+            reservaAssento.setReserva(reserva);
+            reservaAssento.setAssento(assento);
+
+            reserva.getAssentos().add(reservaAssento);
+
 
         }
+
+        Reservas reservaSalva = reservasRepository.save(reserva);
+        return toResponse(reserva);
 
     }
 }
