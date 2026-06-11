@@ -102,4 +102,19 @@ public class ReservasService {
         return toResponse(reserva);
 
     }
+
+
+    public ReservaResponse buscarPorId(UUID id){
+        Reservas reservas = reservasRepository.findById(id).orElseThrow(() -> new  EntityNotFoundException("Reserva não encontrada"));
+
+        return toResponse(reservas);
+    }
+
+    public void deletarReserva(UUID id){
+        Reservas reservas = reservasRepository.findById(id).orElseThrow(() -> new  EntityNotFoundException("Reserva não encontrada"));
+
+        reservasRepository.delete(reservas);
+    }
+
+
 }
